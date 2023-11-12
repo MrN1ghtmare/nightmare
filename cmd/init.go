@@ -4,6 +4,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/exec"
@@ -31,17 +32,17 @@ to quickly create a Cobra application.`,
 		} else {
 			packageName, err = os.Getwd()
 			if err != nil {
-				log.Fatalln(err)
+				log.Fatal(err)
 			}
 
 			packageName = filepath.Base(packageName)
 		}
 
 		if err := exec.Command("go", "mod", "init", packageName).Run(); err != nil {
-			log.Fatalln(err)
+			log.Fatal(err)
 		}
 
-		log.Printf("Go module created [%s]!\n", packageName)
+		fmt.Printf("Go module created [%s]!\n", packageName)
 
 		const defaultPerm = 0755
 		os.Mkdir("build", defaultPerm)
@@ -59,8 +60,14 @@ to quickly create a Cobra application.`,
 		os.MkdirAll("internal/domain/port", defaultPerm)
 		os.MkdirAll("internal/domain/service", defaultPerm)
 
-		log.Println("Default directories created!")
-		log.Println("Project initialized!")
+		_, err = os.Create("./configs/nightmare.yml")
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Println("Default directories created!")
+		fmt.Println("Project initialized!")
 	},
 }
 

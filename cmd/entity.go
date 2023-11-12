@@ -4,11 +4,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
-	"log"
-	"os"
-	"regexp"
-	"strings"
+	"nightmare/internal/controller/nightmareCli"
 
 	"github.com/spf13/cobra"
 )
@@ -25,44 +21,7 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 
 	Args: cobra.ExactArgs(1),
-	Run: func(cmd *cobra.Command, args []string) {
-
-		pascalCaseRegex := regexp.MustCompile(`^[A-Z][a-z0-9]*$`)
-		entityName := args[0]
-		if !pascalCaseRegex.MatchString(entityName) {
-			log.Fatalln("write entity name following PascalCase pattern")
-		}
-
-		fileName := pascalCaseRegex.ReplaceAllString(entityName, "${1}_${2}")
-		if fileName == "_" {
-			fileName = strings.ToLower(entityName)
-		} else {
-			fileName = strings.ToLower(fileName)
-		}
-
-		fileName = fileName + ".go"
-
-		srcFile, err := os.Create(fmt.Sprintf("./internal/domain/entity/%s", fileName))
-		if err != nil {
-			log.Fatalln(err)
-		}
-
-		_, err = srcFile.WriteString(
-			fmt.Sprintf(
-				"package entity\n\ntype %s struct {\n}\n\nfunc New%s() %s {\n\treturn %s{}\n}\n",
-				entityName,
-				entityName,
-				entityName,
-				entityName,
-			),
-		)
-
-		if err != nil {
-			log.Fatalln(err)
-		}
-
-		log.Printf("entity %s created!\n", entityName)
-	},
+	Run:  nightmareCli.Entity.Create,
 }
 
 func init() {
