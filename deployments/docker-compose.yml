@@ -1,5 +1,0 @@
-version: '3'
-services:
-  nightmare-cli:
-    image: nightmare-cli-alpha
-    container_name: nightmare-cli

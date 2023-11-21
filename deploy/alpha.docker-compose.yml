@@ -1,0 +1,7 @@
+version: "3"
+services:
+  nightmare-cli-alpha:
+    build:
+      context: ..
+      dockerfile: build/alpha.Dockerfile
+    container_name: nightmare-cli-alpha
