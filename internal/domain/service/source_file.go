@@ -22,7 +22,7 @@ func (sfs *sourceFileService) validateName(name *string) error {
 	return nil
 }
 
-func (sfs *sourceFileService) generateElementFileName(name *string) *string {
+func (sfs *sourceFileService) genFileName(name *string) *string {
 	pattern := regexp.MustCompile(pascalCaseRegex)
 	fileName := pattern.ReplaceAllString(*name, "${1}_${2}")
 	if fileName == "_" {

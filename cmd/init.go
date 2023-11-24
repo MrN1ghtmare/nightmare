@@ -48,7 +48,7 @@ to quickly create a Cobra application.`,
 		os.Mkdir("build", defaultPerm)
 		os.Mkdir("cmd", defaultPerm)
 		os.Mkdir("configs", defaultPerm)
-		os.Mkdir("deployments", defaultPerm)
+		os.Mkdir("deploy", defaultPerm)
 		os.Mkdir("docs", defaultPerm)
 		os.Mkdir("examples", defaultPerm)
 		os.Mkdir("internal", defaultPerm)

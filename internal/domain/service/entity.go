@@ -14,7 +14,7 @@ func (es *EntityService) Create(e *entity.Entity) error {
 		return err
 	}
 
-	es.generateElementFileName(e.Name)
+	e.FileName = es.genFileName(e.Name)
 
 	targetDir := "./internal/domain/entity"
 	content := fmt.Sprintf(

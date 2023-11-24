@@ -14,7 +14,7 @@ func (ss *ServiceService) Create(s *entity.Service) error {
 		return err
 	}
 
-	ss.generateElementFileName(s.Name)
+	s.FileName = ss.genFileName(s.Name)
 
 	targetDir := "./internal/domain/service"
 	content := fmt.Sprintf(
