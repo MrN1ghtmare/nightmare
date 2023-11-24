@@ -1,7 +1,6 @@
 package service
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"regexp"
@@ -16,7 +15,7 @@ const pascalCaseRegex = `^[A-Z][a-z0-9]*$`
 
 func (sfs *sourceFileService) validateName(name *string) error {
 	if !regexp.MustCompile(pascalCaseRegex).MatchString(*name) {
-		return errors.New(fmt.Sprintf("write %s name following PascalCase pattern", *sfs.elementName))
+		return fmt.Errorf("write %s name following PascalCase pattern", *sfs.elementName)
 	}
 
 	return nil
