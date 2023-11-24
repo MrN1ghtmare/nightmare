@@ -18,7 +18,7 @@ func (es *EntityService) Create(e *entity.Entity) error {
 
 	targetDir := "./internal/domain/entity"
 	content := fmt.Sprintf(
-		"package entity\n\ntype %s struct {\n}\n\nfunc New%s() %s {\n\treturn %s{}\n}\n",
+		"package entity\n\ntype %s struct {\n}\n\nfunc New%s() *%s {\n\treturn %s{}\n}\n",
 		*e.Name,
 		*e.Name,
 		*e.Name,
