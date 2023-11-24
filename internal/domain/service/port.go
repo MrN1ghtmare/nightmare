@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"nightmare/internal/domain/entity"
 )
 
@@ -17,13 +16,7 @@ func (ps *PortService) Create(p *entity.Port) error {
 	p.FileName = ps.genFileName(p.Name)
 
 	targetDir := "./internal/domain/port"
-	content := fmt.Sprintf(
-		"package port\n\ntype %s struct {\n}\n\nfunc New%s() *%s {\n\treturn %s{}\n}\n",
-		*p.Name,
-		*p.Name,
-		*p.Name,
-		*p.Name,
-	)
+	content := "package port\n"
 
 	if err := ps.createSourceFile(&targetDir, p.FileName, &content); err != nil {
 		return err

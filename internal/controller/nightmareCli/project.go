@@ -6,6 +6,8 @@ import (
 	"nightmare/internal/domain/entity"
 	"nightmare/internal/domain/port"
 	"nightmare/internal/domain/service"
+	"os"
+	"path/filepath"
 
 	"github.com/spf13/cobra"
 )
@@ -31,7 +33,19 @@ func (pc *ProjectController) createDefaultPorts() error {
 }
 
 func (pc *ProjectController) Create(cmd *cobra.Command, args []string) {
-	p := entity.NewProject(&args[0])
+	var p *entity.Project
+
+	if len(args) == 1 {
+		p = entity.NewProject(&args[0])
+	} else {
+		packageName, err := os.Getwd()
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		packageName = filepath.Base(packageName)
+		p = entity.NewProject(&packageName)
+	}
 
 	if err := pc.projectSrvc.Create(p); err != nil {
 		log.Fatal(err)

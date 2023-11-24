@@ -48,9 +48,7 @@ func (ps *ProjectService) createNightmareConfigFile() error {
 }
 
 func (ps *ProjectService) Create(p *entity.Project) error {
-	var packageName string
-
-	if err := ps.initGoProject(&packageName); err != nil {
+	if err := ps.initGoProject(p.Name); err != nil {
 		return err
 	}
 
@@ -58,7 +56,11 @@ func (ps *ProjectService) Create(p *entity.Project) error {
 		return err
 	}
 
-	return ps.createNightmareConfigFile()
+	if err := ps.createNightmareConfigFile(); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func NewProjectService() *ProjectService {
